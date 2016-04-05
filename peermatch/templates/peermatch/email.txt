@@ -1,0 +1,32 @@
+{% autoescape off %}
+From: Your name here <test@example.org>
+To: {{ recipients }}
+Cc: peering@example.org
+Subject: Peering with the Example Organization (AS NNNN)
+
+Hello {{ peer.name }}/AS{{ peer.asn }},
+
+{% spaceless %}
+{% if existing_ixp|length > 1 %}
+We are peers with you at the following Internet Exchange
+{{ existing_ixp|length|pluralize }}:{% for ixp in existing_ixp %}
+
+  - {{ ixp }}{% endfor %}
+
+We would like to expand our peering with you to:{% for ixp in new_ixp %}
+  - {{ ixp }}{% endfor %}
+
+{% else %}
+We would like to peer with you at the following Internet Exchange{{ new_ixp|pluralize }}:{% for ixp in new_ixp %}
+  - {{ ixp }}{% endfor %}
+{% endif %}
+{% endspaceless %}
+
+You can find out more about us at
+http://asNNNNN.peeringdb.com/
+
+{% if matrix %}For your convenience, the peering matrix is:
+{{ matrix }}{% endif %}
+
+Regards,
+{% endautoescape %}

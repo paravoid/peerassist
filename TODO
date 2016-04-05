@@ -1,0 +1,12 @@
+- testing with
+  + 577
+  + 1241
+  + 1280
+  + 21928
+
+- Move SNMP_ROUTERS in the database
+  + associate them with ix/ixlan, add Juniper group
+  + generate Juniper commands
+
+- Move email.txt to the database
+  + separate From (from user object) and signature

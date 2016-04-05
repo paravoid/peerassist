@@ -1,0 +1,35 @@
+<html>
+  <head>
+  <title>Peering match</title>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <th>Primary ASN</th>
+        <th>Name</th>
+        <th>Policy</th>
+        {% for ixp in ixps %}
+        <th>{{ ixp.name }}</th>
+        {% endfor %}
+      </tr>
+      {% for net in nets %}
+      <tr>
+        <td>{{ net.asn }}</td>
+        <td>{{ net.name }}</td>
+        <td>{{ net.policy_general }}</td>
+        {% for ixp in ixps %}
+        {% if ixp.id in net.peering %}
+        <td>✓</td>
+        {% else %}
+        {% if ixp.id in net.ix %}
+        <td>avail</td>
+        {% else %}
+        <td>✗</td>
+        {% endif %}
+        {% endif %}
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
