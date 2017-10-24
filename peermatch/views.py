@@ -8,9 +8,9 @@ from itertools import groupby
 def index(request):
     us = Network.objects.get(asn=settings.OUR_ASN)
 
-    our_lans = IXLan.objects.filter(networkixlan__net=us)
+    our_lans = IXLan.objects.filter(netixlan_set__net=us)
 
-    our_ix = InternetExchange.objects.filter(ixlan_set=our_lans)
+    our_ix = InternetExchange.objects.filter(ixlan_set__in=our_lans)
     our_ix = our_ix.order_by('name')
 
     common_nets = Network.objects.all()

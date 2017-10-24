@@ -8,17 +8,15 @@ Hello {{ peer.name }}/AS{{ peer.asn }},
 
 {% spaceless %}
 {% if existing_ixp|length > 1 %}
-We are peers with you at the following Internet Exchange
-{{ existing_ixp|length|pluralize }}:{% for ixp in existing_ixp %}
-
-  - {{ ixp }}{% endfor %}
+We are peers with you at the following Internet Exchange{{ existing_ixp|length|pluralize }}:{% for ixp in existing_ixp %}
+  - {{ ixp.name }}{% endfor %}
 
 We would like to expand our peering with you to:{% for ixp in new_ixp %}
-  - {{ ixp }}{% endfor %}
+  - {{ ixp.name }}{% endfor %}
 
 {% else %}
 We would like to peer with you at the following Internet Exchange{{ new_ixp|pluralize }}:{% for ixp in new_ixp %}
-  - {{ ixp }}{% endfor %}
+  - {{ ixp.name }}{% endfor %}
 {% endif %}
 {% endspaceless %}
 

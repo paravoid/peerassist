@@ -20,8 +20,8 @@ def peering_matrix(us, them):
     ])
 
     common_ixl = IXLan.objects.all()
-    common_ixl = common_ixl.filter(networkixlan__net=us)
-    common_ixl = common_ixl.filter(networkixlan__net=them)
+    common_ixl = common_ixl.filter(netixlan_set__net=us)
+    common_ixl = common_ixl.filter(netixlan_set__net=them)
     common_ixl = common_ixl.distinct().order_by('ix__name')
 
     if len(common_ixl) == 0:
@@ -66,8 +66,8 @@ def peering_matrix(us, them):
 
 def email(us, them):
     common_ixp = InternetExchange.objects.all()
-    common_ixp = common_ixp.filter(ixlan_set__networkixlan__net=us)
-    common_ixp = common_ixp.filter(ixlan_set__networkixlan__net=them)
+    common_ixp = common_ixp.filter(ixlan_set__netixlan_set__net=us)
+    common_ixp = common_ixp.filter(ixlan_set__netixlan_set__net=them)
     common_ixp = common_ixp.distinct().order_by('name')
 
     if len(common_ixp) == 0:
@@ -76,9 +76,9 @@ def email(us, them):
     peerings = Peering.objects.filter(netixlan__net=them)
 
     existing_ixp = common_ixp.filter(
-            ixlan_set__networkixlan__peering=peerings)
+            ixlan_set__netixlan_set__peering__in=peerings)
     new_ixp = common_ixp.exclude(
-            ixlan_set__networkixlan__peering=peerings)
+            ixlan_set__netixlan_set__peering__in=peerings)
 
     if len(new_ixp) == 0:
         raise CommandError('No new IXPs found')
