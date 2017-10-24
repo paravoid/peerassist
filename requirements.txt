@@ -1,0 +1,4 @@
+Django==1.11.6
+django-peeringdb==0.7.0
+snimpy
+prettytable
