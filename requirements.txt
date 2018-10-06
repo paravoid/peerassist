@@ -1,4 +1,4 @@
-Django==1.11.6
-django-peeringdb==0.7.0
-snimpy
-prettytable
+Django==2.1.2
+django-peeringdb==0.8.0
+prettytable==0.7.2
+snimpy==0.8.12
