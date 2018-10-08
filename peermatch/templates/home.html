@@ -1,35 +1,40 @@
-<html>
-  <head>
-  <title>Peering match</title>
-  </head>
-  <body>
-    <table>
-      <tr>
-        <th>Primary ASN</th>
-        <th>Name</th>
-        <th>Policy</th>
-        {% for ixp in ixps %}
-        <th>{{ ixp.name }}</th>
-        {% endfor %}
-      </tr>
-      {% for net in nets %}
-      <tr>
-        <td>{{ net.asn }}</td>
-        <td>{{ net.name }}</td>
-        <td>{{ net.policy_general }}</td>
-        {% for ixp in ixps %}
-        {% if ixp.id in net.peering %}
-        <td>✓</td>
-        {% else %}
-        {% if ixp.id in net.ix %}
-        <td>avail</td>
-        {% else %}
-        <td>✗</td>
-        {% endif %}
-        {% endif %}
-        {% endfor %}
-      </tr>
-      {% endfor %}
-    </table>
-  </body>
-</html>
+{% extends "_base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Overview" %}{% endblock %}
+{% block heading %}{% trans "Overview" %}{% endblock %}
+{% block body %}
+      <div class="table-responsive">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>{% trans "ASN" %}</th>
+              <th>{% trans "Name" %}</th>
+              <th>{% trans "Policy" %}</th>
+              {% for ixp in ixps %}
+              <th>{{ ixp.name }}</th>
+              {% endfor %}
+            </tr>
+          </thead>
+          <tbody>
+          {% for net in nets %}
+            <tr>
+              <td>{{ net.asn }}</td>
+              <td>{{ net.name }}</td>
+              <td>{{ net.policy_general }}</td>
+              {% for ixp in ixps %}
+              {% if ixp.id in net.peering %}
+              <td>✓</td>
+              {% else %}
+              {% if ixp.id in net.ix %}
+              <td>avail</td>
+              {% else %}
+              <td>✗</td>
+              {% endif %}
+              {% endif %}
+              {% endfor %}
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+{% endblock %}
