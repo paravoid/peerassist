@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_peeringdb',
     'pa_bootstrap',
+    'pa_fontawesome',
     'peerassist',
     'peermatch',
     'peercollect',
