@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from email.utils import formataddr as format_email_addr
 import email.header
 

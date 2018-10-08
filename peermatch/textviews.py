@@ -1,4 +1,3 @@
-from __future__ import unicode_literals
 from django.template import loader
 from django_peeringdb.models import NetworkIXLan, IXLan, InternetExchange
 from peercollect.models import Peering
