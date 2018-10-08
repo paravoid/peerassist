@@ -86,7 +86,7 @@ def email(us, them):
     if len(recipients) == 0:
         raise CommandError('No appropriate PoCs found')
 
-    template = loader.get_template('peermatch/email.txt')
+    template = loader.get_template('email.txt')
     context = {
         'peer': them,
         'recipients': ', '.join(recipients),

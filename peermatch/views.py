@@ -5,7 +5,7 @@ from django.db.models import F
 from django_peeringdb.models import Network, IXLan, InternetExchange
 from itertools import groupby
 
-def index(request):
+def home(request):
     us = Network.objects.get(asn=settings.OUR_ASN)
 
     our_lans = IXLan.objects.filter(netixlan_set__net=us)
@@ -59,4 +59,4 @@ def index(request):
             'nets': nets,
     }
 
-    return render(request, 'peermatch/index.html', context)
+    return render(request, 'home.html', context)
