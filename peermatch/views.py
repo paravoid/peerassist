@@ -2,8 +2,52 @@ from django.conf import settings
 from django.shortcuts import render
 from django.db.models import F
 
+import django_tables2 as tables
+import django_filters as filters
+from django_filters.views import FilterView
+
 from django_peeringdb.models import Network, IXLan, InternetExchange
 from itertools import groupby
+
+
+class NetworkSummaryTable(tables.Table):
+    class Meta:
+        model = Network
+        fields = (
+            'asn',
+            'name',
+            'info_traffic',
+            'info_scope',
+            'policy_general',
+        )
+
+
+class NetworkFilter(filters.FilterSet):
+    name = filters.CharFilter(lookup_expr='contains')
+    present_in = filters.ModelMultipleChoiceFilter(
+            label='Present in',
+            field_name='netixlan_set__ixlan__ix',
+            queryset=InternetExchange.objects.filter(ixlan_set__netixlan_set__net__asn=settings.OUR_ASN).order_by('name')
+    )
+
+    class Meta:
+        model = Network
+        fields = (
+            'asn',
+            'name',
+            'info_traffic',
+            'info_scope',
+            'policy_general',
+        )
+
+
+class FilteredNetworkList(tables.SingleTableMixin, FilterView):
+    model = Network
+    ordering = ['asn']
+    table_class = NetworkSummaryTable
+    filterset_class = NetworkFilter
+    template_name = 'prospects.html'
+
 
 def home(request):
     us = Network.objects.get(asn=settings.OUR_ASN)
