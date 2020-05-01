@@ -10,11 +10,25 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Peering',
+            name="Peering",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('router', models.CharField(db_index=True, max_length=255)),
-                ('netixlan', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='django_peeringdb.NetworkIXLan')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("router", models.CharField(db_index=True, max_length=255)),
+                (
+                    "netixlan",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="django_peeringdb.NetworkIXLan",
+                    ),
+                ),
             ],
         ),
     ]

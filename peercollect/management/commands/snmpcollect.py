@@ -13,10 +13,9 @@ class Command(BaseCommand):
     help = "populate peering database from SNMP"
 
     def add_arguments(self, parser):
-        parser.add_argument('-n', '--dry-run',
-                action='store_true',
-                default=False,
-                help='dry run')
+        parser.add_argument(
+            "-n", "--dry-run", action="store_true", default=False, help="dry run"
+        )
 
     def handle(self, *args, **options):
         # only BGP4-MIB for now, there were snimpy troubles with Juniper's BGP
@@ -53,5 +52,8 @@ class Command(BaseCommand):
                     p = Peering(netixlan=netixlan, router=router)
                     p.save()
 
-            print("{}: matched {}, not matched {}".format(
-                router, len(netixlans), notmatched))
+            print(
+                "{}: matched {}, not matched {}".format(
+                    router, len(netixlans), notmatched
+                )
+            )
