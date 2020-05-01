@@ -133,11 +133,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Adjust these as necessary
 # As recommended by http://peeringdb.github.io/django-peeringdb/
-PEERINGDB_TABLE_PREFIX = 'peeringdb_'
-
-PEERINGDB_SYNC_URL = 'https://www.peeringdb.com/api'
-PEERINGDB_SYNC_USERNAME = 'example-username'
-PEERINGDB_SYNC_PASSWORD = 'example-password'
+TABLE_PREFIX = 'peeringdb_'
 
 # add user defined iso code for Kosovo
 COUNTRIES_OVERRIDE = {
@@ -146,7 +142,6 @@ COUNTRIES_OVERRIDE = {
 
 # only for sqlite3
 USE_TZ = False
-PEERINGDB_SYNC_STRIP_TZ = True
 
 OUR_ASN=64496
 

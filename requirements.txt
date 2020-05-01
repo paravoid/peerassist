@@ -1,5 +1,5 @@
 Django<3
-django-peeringdb==0.8.0
+django-peeringdb==2.0.0
 django-tables2<2.3.0
 django-filter==2.2.0
 django-crispy-forms==1.9.0
