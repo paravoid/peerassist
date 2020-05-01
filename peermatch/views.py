@@ -20,6 +20,7 @@ class NetworkSummaryTable(tables.Table):
             "info_traffic",
             "info_scope",
             "policy_general",
+            "asrank__rank",
         )
 
 
