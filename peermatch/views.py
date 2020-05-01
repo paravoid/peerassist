@@ -7,6 +7,7 @@ import django_filters as filters
 from django_filters.views import FilterView
 
 from django_peeringdb.models import Network, IXLan, InternetExchange
+from peercollect.models import Peering
 from itertools import groupby
 
 
@@ -49,6 +50,38 @@ class FilteredNetworkList(tables.SingleTableMixin, FilterView):
     table_class = NetworkSummaryTable
     filterset_class = NetworkFilter
     template_name = "prospects.html"
+
+
+class PeeringTable(tables.Table):
+    class Meta:
+        model = Peering
+        fields = (
+            "netixlan__net__asn",
+            "netixlan__net__name",
+            "netixlan__ixlan__ix",
+            "router",
+        )
+
+
+class PeeringFilter(filters.FilterSet):
+    asn = filters.NumberFilter(label="ASN", field_name="netixlan__net__asn")
+    ixp = filters.ModelMultipleChoiceFilter(
+        label="Internet Exchange",
+        field_name="netixlan__ixlan__ix",
+        queryset=InternetExchange.objects.filter(
+            ixlan_set__netixlan_set__peering__isnull=False
+        )
+        .distinct()
+        .order_by("name"),
+    )
+
+
+class PeeringList(tables.SingleTableMixin, FilterView):
+    model = Peering
+    ordering = ["netixlan__ixlan__ix", "netixlan__net__asn"]
+    table_class = PeeringTable
+    filterset_class = PeeringFilter
+    template_name = "peerings.html"
 
 
 def home(request):
